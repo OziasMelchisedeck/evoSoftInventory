@@ -1,0 +1,29 @@
+.contain{
+    margin-top: 3.2rem;
+    min-height: 90vh;
+    height: 100%;
+}
+.side{
+    border-right: solid 0.5rem var(--principal-color);
+}
+.tri{
+    width:5rem;
+    font-size: small;
+}
+.sort {
+    fill: var(--principal-color);
+    transition: fill 0.3s;
+}
+
+.sort:hover {
+    fill: white;
+}
+.plus{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    box-shadow: 3px 3px 3px silver;
+    position: relative;
+    top: 50%;
+    left: 85%; 
+}
