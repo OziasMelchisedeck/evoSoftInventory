@@ -3,6 +3,7 @@ import './App.css';
 import StoreIcon from '@mui/icons-material/Store';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useEffect } from 'react';
 
 //interface entité magasin
 interface Magasin{
@@ -11,12 +12,20 @@ interface Magasin{
   adresse:string;
 }
 
+interface Inventaire{
+  date:string;
+  produitId:string;
+  stock:Record<string, number>;
+}
+
+
 const magasinsList: Magasin[] = magasins;
 
 
 function App() {
   return (
   <div className='app text-center'>
+    <span className='text-primary h5 mt-4 mx-2'>{magasinsList.length}</span>
     <span className='text-primary h5 mt-4'>Magasins</span>
     <div className="contenu d-flex justify-content-evenly mt-3">
        {magasinsList.map((magasin) =>(

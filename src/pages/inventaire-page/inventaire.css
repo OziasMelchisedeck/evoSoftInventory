@@ -22,8 +22,19 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
+    background-color: white;
     box-shadow: 3px 3px 3px silver;
-    position: relative;
-    top: 50%;
-    left: 85%; 
+    position: fixed;
+    bottom: 35%;
+    left: 21.5%; 
+    z-index: 5;
+}
+.item{
+    box-shadow: 2px 2px 2px 2px silver;
+    border-radius: 0.2rem;
+    cursor:pointer;
+    border-left: solid 0.5rem black;
+}
+.item:hover{
+    transform: scale(1.03);
 }

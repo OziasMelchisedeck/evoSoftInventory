@@ -1,3 +1,23 @@
 .formulaire{
     margin-top: 4rem;
 }
+.form-contain{
+    width:fit-content;
+    box-shadow: 3px 3px 3px 3px silver;
+    border-radius: 0.5rem;
+}
+.control{
+    width: 10.5rem;
+}
+label{
+    font-weight:500;
+}
+.title{
+    border-bottom: solid 0.4rem var(--principal-color);
+    width: fit-content;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.add{
+    width: 12rem;
+}
