@@ -3,7 +3,6 @@ import './App.css';
 import StoreIcon from '@mui/icons-material/Store';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { useEffect } from 'react';
 
 //interface entité magasin
 interface Magasin{

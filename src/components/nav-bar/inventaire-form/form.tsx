@@ -2,12 +2,14 @@ import './form.css'
 import React, { useState, useEffect } from 'react';
 import Select from '@mui/material/Select';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
-import {
-    TextField,
-    MenuItem,
-  } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import {TextField,MenuItem} from '@mui/material';
 import produits from '../../../data/produits';
 import magasins from '../../../data/magasin';
+import { useNavigate } from 'react-router-dom';
   
 
 interface Inventaire{
@@ -40,7 +42,7 @@ function Formulaire(){
 
     return `${year}-${month}-${day}`; // Format YYYY-MM-DD
     }
-    //initialisation
+    //initialisation de l'inventaire
     const inventaireList: Inventaire[] = [
         {
             date: '',
@@ -52,10 +54,16 @@ function Formulaire(){
     const storedInventaires = localStorage.getItem('inventaires');
     const lastInventaire: Inventaire[] = storedInventaires != null? JSON.parse(storedInventaires) : inventaireList;
 
+    //useState
     const [date, setDate] = useState<string>(getCurrentDate());
     const [produitId, setProduitId] = useState<string>(produitsList[0].id)
     const [stock, setStock] = useState<Record<string, number>>({});
     const [inventaires, setInventaires] = useState<Inventaire[]>(lastInventaire);
+    const [open, setOpen] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
+
+    //hook pour le routeur
+    const navigate = useNavigate();
     
     function handleStockChange(magasinId: string, value: number){ //enregistrer le stock
         setStock({
@@ -71,17 +79,63 @@ function Formulaire(){
             }, [inventaires])
 
     //enregistrement du nouvel inventaire
-    function submit(){
-     const newInventaire: Inventaire = {
-        date,produitId,stock
+    function submit(){  
+        console.log(date, produitId, stock);
+         
+     if(date !== '' && produitId !== '' && Object.keys(stock).length > 0){
+        const newInventaire: Inventaire = {
+            date,produitId,stock
+         }
+         inventaires.push(newInventaire)
+        setInventaires(inventaires);
+        localStorage.setItem('inventaires',JSON.stringify(inventaires))
+        setOpen(true);
      }
-     inventaires.push(newInventaire)
-     setInventaires(inventaires);
-     localStorage.setItem('inventaires',JSON.stringify(inventaires))
+     else{
+        setError(true)
+     }
     }
     
     return(
-        <div className="formulaire d-flex flex-column px-4 text-center align-items-center justify-content-center">
+        <div className="formulaire d-flex mb-4 flex-column px-4 text-center align-items-center justify-content-center">
+           <Collapse in={open}> 
+            <Alert className="alert" severity="success"
+            action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate('/inventaire')
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+                        Inventaire ajouté avec success!
+            </Alert>
+            </Collapse>
+
+            <Collapse in={error}> 
+            <Alert className="alert" severity="error"
+            action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setError(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+                        Formulaire incorrect! Vérifier que les stocks sont renseignés!
+            </Alert>
+            </Collapse>
             <span className='text-primary h6 my-2'>Nouvel Inventaire</span>
             <form className='d-flex flex-column p-3 form-contain'>
                 <div className='text-center my-3'><span className='text-primary p-2 h6 title'>Informations du produit</span></div>
@@ -127,6 +181,7 @@ function Formulaire(){
                                 onChange={(e) => handleStockChange(magasin.id, parseInt(e.target.value))}
                                 required
                             />
+                            {error && <span className="text-danger">*Champ vide</span>}
                         </div>
                     ))}
                 </div>
