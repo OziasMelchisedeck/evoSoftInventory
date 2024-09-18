@@ -20,7 +20,7 @@ function App() {
   const { t, i18n } = useTranslation();
   // localStorage.removeItem("inventaires"); //pour reinitialiser le stockage des inventaires
   return (
-  <div className='app text-center'>
+  <div className='app text-center' >
     <span className='text-primary h5 mt-4 mx-2'>{magasinsList.length}</span>
     <span className='text-primary h5 mt-4'>{t('app.title')}</span>
     <div className="contenu d-flex justify-content-evenly mt-3">
