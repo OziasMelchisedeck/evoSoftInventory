@@ -59,7 +59,7 @@ function Formulaire(){
     //useState
     const [date, setDate] = useState<string>(getCurrentDate());
     const [produitId, setProduitId] = useState<string>(produitsList[0].id)
-    const [stock, setStock] = useState<Record<string, number>>({});
+    const [stock, setStock] = useState<Record<string, number>>({'mgs1':0, 'mgs2':0, 'mgs3':0});
     const [inventaires, setInventaires] = useState<Inventaire[]>(lastInventaire);
     const [open, setOpen] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
@@ -178,7 +178,7 @@ function Formulaire(){
                                 label={t("addInventaire.quantite")}
                                 variant="outlined"
                                 type="number"
-                                value={stock[magasin.id] || ''}
+                                value={stock[magasin.id] || 0}
                                 onChange={(e) => {
                                     const value = parseInt(e.target.value);
                                     if(value >= 0){handleStockChange(magasin.id, parseInt(e.target.value))}

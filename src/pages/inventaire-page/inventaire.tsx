@@ -93,7 +93,7 @@ function InventairePage(){
     ? Object.entries(currentInventaire.stock).map(([magasinId, quantite]) => {
         const magasin = magasinsList.find(m => m.id === magasinId);
         return {
-            magasin: magasin ? magasin.nom : 'Inconnu',
+            magasin: magasin ? t(`magasin.${magasin.nom}`) : 'Inconnu',
             quantite,
         };
     })
