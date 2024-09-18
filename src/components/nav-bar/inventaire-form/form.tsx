@@ -178,10 +178,15 @@ function Formulaire(){
                                 variant="outlined"
                                 type="number"
                                 value={stock[magasin.id] || ''}
-                                onChange={(e) => handleStockChange(magasin.id, parseInt(e.target.value))}
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value);
+                                    if(value >= 0){handleStockChange(magasin.id, parseInt(e.target.value))}
+                                    else{setError(true)}
+                                }
+                                }
                                 required
                             />
-                            {error && <span className="text-danger">*Champ vide</span>}
+                            {error && <span className="text-danger">*Champ invalide(vide ou négatif)</span>}
                         </div>
                     ))}
                 </div>

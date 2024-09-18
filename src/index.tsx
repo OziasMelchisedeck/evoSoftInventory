@@ -8,7 +8,7 @@ import 'primereact/resources/themes/saga-blue/theme.css'; // Choisir le thème
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 // import 'primeflex/primeflex.css';
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import { PrimeReactProvider} from 'primereact/api';
 import Nav from './components/nav-bar/nav';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductPage from './pages/products-page/productPage';

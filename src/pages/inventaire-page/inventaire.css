@@ -14,8 +14,11 @@
     z-index: 2;
 }
 .tri{
-    width:5rem;
+    width:5.3rem;
     font-size: small;
+}
+.date{
+    font-weight: 500;
 }
 .sort {
     fill: var(--principal-color);
@@ -25,7 +28,14 @@
     fill: white;
 }
 .task{
-    margin-top: 6.5rem;
+    margin-top: 7rem;
+}
+.recherche{
+    width: 9rem;
+}
+.loupe{
+    position: relative;
+    left: -1.3rem;
 }
 .plus{
     width: 2.5rem;
@@ -46,4 +56,13 @@
 }
 .item:hover{
     transform: scale(1.03);
+}
+.right{
+    position: fixed;
+    right:0rem
+}
+.export{
+    width: 4rem;
+    height: 2rem;
+    font-size: medium;
 }

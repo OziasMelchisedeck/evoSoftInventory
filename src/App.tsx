@@ -11,24 +11,19 @@ interface Magasin{
   adresse:string;
 }
 
-interface Inventaire{
-  date:string;
-  produitId:string;
-  stock:Record<string, number>;
-}
-
 
 const magasinsList: Magasin[] = magasins;
 
 
 function App() {
+  // localStorage.removeItem("inventaires"); //pour reinitialiser le stockage des inventaires
   return (
   <div className='app text-center'>
     <span className='text-primary h5 mt-4 mx-2'>{magasinsList.length}</span>
     <span className='text-primary h5 mt-4'>Magasins</span>
     <div className="contenu d-flex justify-content-evenly mt-3">
        {magasinsList.map((magasin) =>(
-        <div key={magasin.id} className='d-flex flex-column align-items-center col-3 magasin'>
+        <div key={magasin.id} className='d-flex flex-column align-items-center col-12 col-md-3 magasin'>
           <StoreIcon style={{fontSize: '10rem', fill: 'var(--principal-color)' }}/>
           <div className='d-flex'>
             <DriveFileRenameOutlineIcon style={{fontSize: '1.2rem', fill: 'black' }}/>
