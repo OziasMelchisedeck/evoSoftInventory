@@ -16,7 +16,7 @@ Cette application permet de gérer efficacement les saisies des inventaires de c
 
 - **React** : Pour la construction de l'interface utilisateur.
 - **i18next** : Pour la gestion des traductions.
-- **React-Router** : Pour la gestion des routes.
+- **React-Router** : Pour la gestion du routing.
 - **primereact** : Principalement pour le datatable.
 - **Material-UI** : Pour le design de l'interface.
 
