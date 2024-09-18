@@ -14,6 +14,7 @@ import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductPage from './pages/products-page/productPage';
 import InventairePage from './pages/inventaire-page/inventaire';
 import Formulaire from './components/nav-bar/inventaire-form/form';
+import './i18n';
 
 
 const root = ReactDOM.createRoot(

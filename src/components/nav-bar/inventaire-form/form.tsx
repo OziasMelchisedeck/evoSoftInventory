@@ -10,6 +10,7 @@ import {TextField,MenuItem} from '@mui/material';
 import produits from '../../../data/produits';
 import magasins from '../../../data/magasin';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
   
 
 interface Inventaire{
@@ -34,6 +35,7 @@ const magasinsList: Magasin[] = magasins;
 const produitsList :Produit[] = produits;
 
 function Formulaire(){
+    const { t, i18n } = useTranslation();
     function getCurrentDate() { //obtenir la date du jour
     const dateOfToday = new Date();
     const year = dateOfToday.getFullYear();
@@ -90,6 +92,7 @@ function Formulaire(){
         setInventaires(inventaires);
         localStorage.setItem('inventaires',JSON.stringify(inventaires))
         setOpen(true);
+        setError(false);
      }
      else{
         setError(true)
@@ -113,8 +116,7 @@ function Formulaire(){
                   <CloseIcon fontSize="inherit" />
                 </IconButton>
               }
-            >
-                        Inventaire ajouté avec success!
+            >{t('addInventaire.alertSuccessMessage')}
             </Alert>
             </Collapse>
 
@@ -132,13 +134,12 @@ function Formulaire(){
                   <CloseIcon fontSize="inherit" />
                 </IconButton>
               }
-            >
-                        Formulaire incorrect! Vérifier que les stocks sont renseignés!
+            >{t('addInventaire.alertErrorMessage')}
             </Alert>
             </Collapse>
-            <span className='text-primary h6 my-2'>Nouvel Inventaire</span>
+            <span className='text-primary h6 my-2'>{t("addInventaire.titlePage")}</span>
             <form className='d-flex flex-column p-3 form-contain'>
-                <div className='text-center my-3'><span className='text-primary p-2 h6 title'>Informations du produit</span></div>
+                <div className='text-center my-3'><span className='text-primary p-2 h6 title'>{t("addInventaire.infoTitle")}</span></div>
                 <div className='d-flex justify-content-between align-items-center'>
                 <label htmlFor="date">Date</label>
                 <TextField
@@ -152,21 +153,21 @@ function Formulaire(){
                     />
                 </div>
                 <div className='d-flex justify-content-between  align-items-center'>
-                    <label htmlFor="produit">Produit</label>
+                    <label htmlFor="produit">{t("addInventaire.produit")}</label>
                     <Select className='control m-1'
                         value={produitId}
                         onChange={(e) => setProduitId(e.target.value)}
                         required>
                         {produitsList.map((produit) => (
-                            <MenuItem key={produit.id} value={produit.id}>{produit.nom}</MenuItem>
+                            <MenuItem key={produit.id} value={produit.id}>{t(`produitsData.${produit.nom}`)}</MenuItem>
                         ))}
                     </Select>
                 </div>
-                <div className='text-center my-3'><span className='text-primary h6 title p-2'>Stock en magasin</span></div>
+                <div className='text-center my-3'><span className='text-primary h6 title p-2'>{t("addInventaire.magasinTitle")}</span></div>
                 <div className='d-flex justify-content-between align-items-center'>
                     {magasinsList.map((magasin)=>(
                         <div key={magasin.id} className='d-flex flex-column'>
-                            <label>{magasin.nom}</label>
+                            <label>{t(`magasin.${magasin.nom}`)}</label>
                             <TextField
                                 className='m-1'
                                 disabled
@@ -174,7 +175,7 @@ function Formulaire(){
                             />
                             <TextField
                                 className='m-1'
-                                label="quantite"
+                                label={t("addInventaire.quantite")}
                                 variant="outlined"
                                 type="number"
                                 value={stock[magasin.id] || ''}
@@ -186,14 +187,14 @@ function Formulaire(){
                                 }
                                 required
                             />
-                            {error && <span className="text-danger">*Champ invalide(vide ou négatif)</span>}
+                            {error && <span className="text-danger">{t('addInventaire.errorMessage')}</span>}
                         </div>
                     ))}
                 </div>
                 <div className='d-flex justify-content-center'>
                     <button onClick={(e) =>{e.preventDefault(); submit()}} className='d-flex btn btn-primary align-items-center justify-content-center add my-3'>
-                        <span className='mx-1 h6'>Ajouter</span>
-                        <Inventory2Icon className='mx-1' style={{ cursor:'pointer', fontSize: '1.2rem', fill: 'white' }}/>
+                        <span className='mx-1 h6'>{t("addInventaire.ajoutBouton")}</span>
+                        <Inventory2Icon className='mx-1 mb-1' style={{ cursor:'pointer', fontSize: '1.2rem', fill: 'white' }}/>
                     </button>
                 </div>
             </form>

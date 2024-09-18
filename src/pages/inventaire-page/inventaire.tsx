@@ -14,6 +14,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Tooltip } from 'primereact/tooltip';
 import magasins from '../../data/magasin';
+import { useTranslation } from 'react-i18next';
 
 
 interface Inventaire{
@@ -42,15 +43,11 @@ interface Produit{
 const produitsList :Produit[] = produits;
 const magasinsList :Magasin[] = magasins;
 
-// paramétrage du datatable
-const cols = [
-    {field:'magasin',name:'magasin'},
-    {field:'quantite', name:'quantite'}
-]
 
 let inventaireListCopie :Inventaire[];
 
 function InventairePage(){    
+    const { t, i18n } = useTranslation();
     //recupérer les inventaires
     const [inventaireList, setInventaireList] = useState<Inventaire[]>([]);
     const [currentInventaire, setCurrentInventaire] = useState<Inventaire>();
@@ -101,20 +98,24 @@ function InventairePage(){
         };
     })
     : [];
-// console.log(currentStock);
-//autres options du datatable
+    // console.log(currentStock);
+    // paramétrage du datatable
+    const cols = [
+        {field:'magasin',name:t("magasin.nom")},
+        {field:'quantite', name:t("magasin.quantite")}
+    ]
     const exportCSV = (selectionOnly : any) => {
         dt.current?.exportCSV({ selectionOnly });
     };
     const header = (
         <div className='d-flex justify-content-between'>
-            <span className='h6'>{produitsList.find((produit)=>produit.id === currentInventaire?.produitId)?.nom}</span>
+            <span className='h6'>{t(`produitsData.${produitsList.find((produit) => produit.id === currentInventaire?.produitId)?.nom}`)}</span>
             <span className='h6'>{currentInventaire?.date}</span>
             <button className='rounded btn btn-outline-primary export' onClick={() => exportCSV(false)} data-pr-tooltip="CSV">CSV </button>
         </div>
     )
     const footer = (
-        <div>{`Quantité restante totale: ${currentStock.reduce((total, stock) => total + stock.quantite, 0)}`}</div>
+        <div>{`${t("inventaire.footerTable")} ${currentStock.reduce((total, stock) => total + stock.quantite, 0)}`}</div>
     )
 
     return(
@@ -122,13 +123,13 @@ function InventairePage(){
             <div className='side col-3 d-flex flex-column'>
                 <div className='d-flex entete flex-column mx-2 p-2'>
                     <div className='header d-flex justify-content-center rounded-1 flex-wrap bg-primary mx-1 my-1 p-2'>
-                            <span className='h6 mx-1 text-light'>Inventaires</span>
+                            <span className='h6 mx-1 text-light'>{t('inventaire.title')}</span>
                             <Inventory2Icon style={{ cursor:'pointer', fontSize: '1.3rem', fill: 'white' }}/>
                     </div>
                     <div className='d-flex justify-content-between align-items-center flex-wrap mt-1'>
                             <div className='d-flex align-items-center'>
                                 <input type='search'
-                                    placeholder="Un produit?"
+                                    placeholder={t('inventaire.searchPlaceholder')}
                                     className='recherche form-control'
                                     value={searchProduct}
                                     onChange={(e) => search(e.target.value)}
@@ -157,14 +158,14 @@ function InventairePage(){
                             <div>
                                 <LocalGroceryStoreIcon style={{ fontSize: '1.3rem', fill: 'var(--principal-color)' }} />
                                 <span className='text-primary'>
-                                    {produitsList.find((produit) => produit.id === inventaire.produitId)?.nom}
+                                    {t(`produitsData.${produitsList.find((produit) => produit.id === inventaire.produitId)?.nom}`)}
                                 </span>
                             </div>
                         </div>
                     ))
                 ) : (
                     <div className='mt-3 text-center h6'>
-                        Aucune donnée d'inventaire à afficher.
+                        {t("inventaire.messageEmptyMenu")}
                     </div>
         )}
                </div>
@@ -180,7 +181,7 @@ function InventairePage(){
                     </div>
                     <div className='d-flex'>
                         <LocalGroceryStoreIcon style={{fontSize: '1.5rem', fill: 'var(--principal-color)' }}/>
-                        <span className='h5 mx-1 text-primary'>{produitsList.find((produit)=>produit.id === currentInventaire?.produitId)?.nom}</span>
+                        <span className='h5 mx-1 text-primary'>{t(`produitsData.${produitsList.find((produit) => produit.id === currentInventaire?.produitId)?.nom}`)}</span>
                     </div>
                 </div>
                 <div className="card">

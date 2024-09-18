@@ -3,6 +3,7 @@ import './productPage.css';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import { useTranslation } from 'react-i18next';
 
 // interface entite produit
 interface Produit{
@@ -13,10 +14,11 @@ interface Produit{
 const produitsList :Produit[] = produits;
 
 function ProductPage(){
+    const { t, i18n } = useTranslation();
     return(
         <div className='text-center product'>
              <span className='text-primary h5 mt-4 mx-2'>{produitsList.length}</span>
-            <span className='text-primary h5 mt-4'>Produits</span>
+            <span className='text-primary h5 mt-4'>{t('produits.title')}</span>
             <div className="contenu d-flex flex-wrap justify-content-evenly mt-3">
                 {produitsList.map((produit) =>(
                     <div key={produit.id} className='d-flex align-items-center justify-content-between p-2 m-2 rounded-1 produit'>
@@ -24,7 +26,7 @@ function ProductPage(){
                         <div className='d-flex flex-column p-1 justify-content-center description'>
                             <div className='d-flex'>
                                 <DriveFileRenameOutlineIcon style={{fontSize: '1.2rem', fill: 'black' }}/>
-                                <span>{produit.nom}</span>
+                                <span>{t(`produitsData.${produit.nom}`)}</span>
                             </div>
                             <div className='d-flex'>
                                 <MonetizationOnIcon style={{fontSize: '1.2rem', fill: 'black' }}/>
